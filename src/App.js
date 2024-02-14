@@ -20,7 +20,6 @@ const defaultTodos = [
 ];
 
 function App() {
-  // eslint-disable-next-line
   const [todos, setTodos] = useState(defaultTodos);
   const [searchValue, setSearchValue] = useState("");
 
@@ -37,6 +36,12 @@ function App() {
     );
   });
 
+  const checkTodo = (index) => {
+    const newTodos = [...todos]
+    newTodos[index].completed = !newTodos[index].completed
+    setTodos(newTodos)
+  }
+
   return (
     <>
       <Nav />
@@ -50,6 +55,7 @@ function App() {
             <TodoCounter pendingTodosCounter={pendingTodos.length} />
           </div>
           <div>
+            {/* TodoFilter */}
             <TodoSearch
               searchValue={searchValue}
               setSearchValue={setSearchValue}
@@ -95,7 +101,7 @@ function App() {
               </button>
               <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <TodoList todoList={searchedTodo} />
+            <TodoList todoList={searchedTodo} checkTodoAction={checkTodo} />
           </section>
         ) : (
           <section className="w-full h-[calc(100vh-200px)] min-h-96 px-6 flex flex-col items-center justify-center">
