@@ -1,7 +1,7 @@
 function TodoItem({ title, description, completed }) {
     return (
       <li className="flex p-4 gap-4 bg-palewhite rounded-xl">
-        <input type="checkbox" className="w-6 h-6 mt-[4px] bg-palewhite text-primary border-mutedazure border-2 rounded-md focus:ring-primary" checked={ completed } />
+        <input type="checkbox" className="w-6 h-6 mt-[4px] bg-palewhite text-primary border-mutedazure border-2 rounded-md focus:ring-primary" onChange={ () => console.log("Click") } checked={ completed } />
         <div>
             <h4 className={ `text-secondary text-xl font-medium ${ completed && "line-through text-slateblue" }` }>{ title }</h4>
             {

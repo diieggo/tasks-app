@@ -20,10 +20,22 @@ const defaultTodos = [
 ];
 
 function App() {
-  const [todos, setTodo] = useState(defaultTodos)
+  // eslint-disable-next-line
+  const [todos, setTodos] = useState(defaultTodos);
+  const [searchValue, setSearchValue] = useState("");
 
-  const completedTodos = todos.filter(todo => todo.completed === true)
-  const pendingTodos = todos.filter(todo => todo.completed === false)
+  // eslint-disable-next-line
+  const completedTodos = todos.filter((todo) => todo.completed === true);
+  const pendingTodos = todos.filter((todo) => todo.completed === false);
+
+  const searchedTodo = todos.filter((todo) => {
+    const todoTile = todo.title.toLowerCase();
+    const todoDescription = todo.description.toLowerCase();
+    return (
+      todoTile.includes(searchValue.toLowerCase()) ||
+      todoDescription.includes(searchValue.toLowerCase())
+    );
+  });
 
   return (
     <>
@@ -35,10 +47,13 @@ function App() {
             <h2 className="text-2xl font-semibold text-secondary">
               Welcome, <span className="text-primary">Diego</span>
             </h2>
-            <TodoCounter pendingTodosCounter={ pendingTodos.length } />
+            <TodoCounter pendingTodosCounter={pendingTodos.length} />
           </div>
           <div>
-            <TodoSearch />
+            <TodoSearch
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
           </div>
         </section>
         {todos.length > 0 ? (
@@ -55,23 +70,23 @@ function App() {
                   <path
                     d="M6.37714 1.5H17.6229C19.3416 1.5 20.66 2.09961 21.5538 3.05962C22.4551 4.02771 23 5.44472 23 7.20219V17.7978C23 19.5553 22.4551 20.9723 21.5538 21.9404C20.66 22.9004 19.3416 23.5 17.6229 23.5H6.37714C4.65841 23.5 3.33997 22.9004 2.44619 21.9404C1.54489 20.9723 1 19.5553 1 17.7978V7.20219C1 5.44595 1.54702 4.02877 2.45004 3.06009C3.34579 2.09921 4.66476 1.5 6.37714 1.5Z"
                     stroke="#007FFF"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M12.0001 8.09277V16.8844"
                     stroke="#007FFF"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M16.3999 12.4886H7.59985"
                     stroke="#007FFF"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
                 <p className="text-lg text-primary font-medium">
@@ -80,7 +95,7 @@ function App() {
               </button>
               <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <TodoList todoList={todos} />
+            <TodoList todoList={searchedTodo} />
           </section>
         ) : (
           <section className="w-full h-[calc(100vh-200px)] min-h-96 px-6 flex flex-col items-center justify-center">
@@ -154,16 +169,16 @@ function App() {
                 <path
                   d="M7.5 1V13"
                   stroke="#007FFF"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
                 <path
                   d="M14 7H1"
                   stroke="#007FFF"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
 

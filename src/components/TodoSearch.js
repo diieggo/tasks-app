@@ -1,4 +1,4 @@
-function TodoSearch() {
+function TodoSearch({ searchValue, setSearchValue }) {
   return (
     <div className="w-full flex items-center py-1 px-4 bg-palewhite rounded-xl">
       <svg
@@ -13,7 +13,13 @@ function TodoSearch() {
           fill="#C6CFDC"
         />
       </svg>
-      <input type="search" placeholder="Search..." className="form-input w-full bg-transparent border-0 text-lg placeholder-mutedazure text-secondary focus:ring-0" />
+      <input
+        type="search"
+        placeholder="Search..."
+        value={ searchValue }
+        onChange={ (e) => setSearchValue(e.target.value) }
+        className="form-input w-full bg-transparent border-0 text-lg placeholder-mutedazure text-secondary focus:ring-0"
+      />
     </div>
   );
 }
