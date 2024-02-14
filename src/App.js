@@ -3,8 +3,9 @@ import { Header } from "./features/Header";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoList } from "./components/TodoList";
+import { useState } from "react";
 
-const todoList = [
+const defaultTodos = [
   { title: "Task 1", description: "Description", completed: true },
   { title: "Task 2", description: "", completed: false },
   { title: "Task 3", description: "Description", completed: true },
@@ -19,6 +20,11 @@ const todoList = [
 ];
 
 function App() {
+  const [todos, setTodo] = useState(defaultTodos)
+
+  const completedTodos = todos.filter(todo => todo.completed === true)
+  const pendingTodos = todos.filter(todo => todo.completed === false)
+
   return (
     <>
       <Nav />
@@ -29,13 +35,13 @@ function App() {
             <h2 className="text-2xl font-semibold text-secondary">
               Welcome, <span className="text-primary">Diego</span>
             </h2>
-            <TodoCounter />
+            <TodoCounter pendingTodosCounter={ pendingTodos.length } />
           </div>
           <div>
             <TodoSearch />
           </div>
         </section>
-        {todoList.length > 0 ? (
+        {todos.length > 0 ? (
           <section className="w-full px-6 mt-9 mb-32 md:mb-8">
             <div className="flex items-center justify-between mb-4 md:mb-6">
               <button className="hidden bg-primary bg-opacity-10 px-4 py-3 gap-2 rounded-xl md:flex">
@@ -74,7 +80,7 @@ function App() {
               </button>
               <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <TodoList todoList={todoList} />
+            <TodoList todoList={todos} />
           </section>
         ) : (
           <section className="w-full h-[calc(100vh-200px)] min-h-96 px-6 flex flex-col items-center justify-center">

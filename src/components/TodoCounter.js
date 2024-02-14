@@ -1,7 +1,7 @@
-function TodoCounter() {
+function TodoCounter({ pendingTodosCounter }) {
   return (
     <p className="text-slateblue text-lg mt-1">
-      You've got 7 tasks to do.
+      You've got { pendingTodosCounter } tasks to do.
     </p>
   )
 }
