@@ -16,7 +16,7 @@ function Nav() {
                 fill="#007FFF"
               />
             </svg>
-            <p className="text-primary font-medium mt-1">Todo</p>
+            <p className="text-primary mt-1">Todo</p>
           </button>
         </li>
         <li className="list-none">
@@ -50,7 +50,7 @@ function Nav() {
                 stroke-linejoin="round"
               />
             </svg>
-            <p className="text-mutedazure font-medium mt-1">Create</p>
+            <p className="text-mutedazure mt-1">Create</p>
           </button>
         </li>
         <li className="list-none">
@@ -88,11 +88,10 @@ function Nav() {
               />
             </svg>
 
-            <p className="text-mutedazure font-medium mt-1">Theme</p>
+            <p className="text-mutedazure mt-1">Theme</p>
           </button>
         </li>
       </nav>
-      <span className="w-full h-20 bg-gradient-to-t from-white fixed bottom-[86px] md:bottom-0 md:h-32"></span>
     </>
   );
 }

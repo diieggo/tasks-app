@@ -1,6 +1,8 @@
-import { TodoList } from "./components/TodoList";
-import { Header } from "./features/Header";
 import { Nav } from "./features/Nav";
+import { Header } from "./features/Header";
+import { TodoCounter } from "./components/TodoCounter";
+import { TodoSearch } from "./components/TodoSearch";
+import { TodoList } from "./components/TodoList";
 
 const todoList = [
   { title: "Task 1", description: "Description", completed: true },
@@ -22,26 +24,57 @@ function App() {
       <Nav />
       <div className="App mx-auto mt-10 max-w-[800px] lg:max-w-[1080px]">
         <Header />
-        <section className="w-full px-6 mt-6">
-          <h2 className="text-2xl font-semibold text-secondary">
-            Welcome, <span className="text-primary">Diego</span>
-          </h2>
-          <p className="text-slateblue text-lg font-medium mt-1">
-            You've got 7 tasks to do.
-          </p>
-          {/* todo counter */}
+        <section className="w-full px-6 mt-6 flex flex-col gap-6">
+          <div>
+            <h2 className="text-2xl font-semibold text-secondary">
+              Welcome, <span className="text-primary">Diego</span>
+            </h2>
+            <TodoCounter />
+          </div>
+          <div>
+            <TodoSearch />
+          </div>
         </section>
         {todoList.length > 0 ? (
-          <section className="w-full px-6 mt-9 mb-32">
-            <div>
-              {/*
-                  <TodoSearch />
-                  <TodoFilter />
-                  */}
+          <section className="w-full px-6 mt-9 mb-32 md:mb-8">
+            <div className="flex items-center justify-between mb-4 md:mb-6">
+              <button className="hidden bg-primary bg-opacity-10 px-4 py-3 gap-2 rounded-xl md:flex">
+                <svg
+                  width="24"
+                  height="25"
+                  viewBox="0 0 24 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.37714 1.5H17.6229C19.3416 1.5 20.66 2.09961 21.5538 3.05962C22.4551 4.02771 23 5.44472 23 7.20219V17.7978C23 19.5553 22.4551 20.9723 21.5538 21.9404C20.66 22.9004 19.3416 23.5 17.6229 23.5H6.37714C4.65841 23.5 3.33997 22.9004 2.44619 21.9404C1.54489 20.9723 1 19.5553 1 17.7978V7.20219C1 5.44595 1.54702 4.02877 2.45004 3.06009C3.34579 2.09921 4.66476 1.5 6.37714 1.5Z"
+                    stroke="#007FFF"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12.0001 8.09277V16.8844"
+                    stroke="#007FFF"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M16.3999 12.4886H7.59985"
+                    stroke="#007FFF"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <p className="text-lg text-primary font-medium">
+                  Add a new task
+                </p>
+              </button>
+              <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <div>
-              <TodoList todoList={todoList} />
-            </div>
+            <TodoList todoList={todoList} />
           </section>
         ) : (
           <section className="w-full h-[calc(100vh-200px)] min-h-96 px-6 flex flex-col items-center justify-center">
@@ -128,7 +161,7 @@ function App() {
                 />
               </svg>
 
-              <p className="text-primary font-medium">Create task</p>
+              <p className="text-primary">Create task</p>
             </button>
           </section>
         )}
