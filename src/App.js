@@ -37,8 +37,14 @@ function App() {
   });
 
   const checkTodo = (index) => {
-    const newTodos = [...todos]
-    newTodos[index].completed = !newTodos[index].completed
+    const newTodos = [...todos];
+    newTodos[index].completed = !newTodos[index].completed;
+    setTodos(newTodos);
+  };
+
+  const deleteTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1)
     setTodos(newTodos)
   }
 
@@ -101,10 +107,10 @@ function App() {
               </button>
               <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <TodoList todoList={searchedTodo} checkTodoAction={checkTodo} />
+            <TodoList todoList={searchedTodo} checkTodoAction={checkTodo} deleteTodoAction={deleteTodo} />
           </section>
         ) : (
-          <section className="w-full h-[calc(100vh-200px)] min-h-96 px-6 flex flex-col items-center justify-center">
+          <section className="w-full h-[calc(100vh-200px)] min-h-96 mb-[86px] px-6 flex flex-col items-center justify-center md:mb-0">
             <svg
               width="148"
               height="144"
@@ -112,7 +118,7 @@ function App() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_14_822)">
+              <g clipPath="url(#clip0_14_822)">
                 <path
                   d="M93.9563 32.3851H54.0767C53.1679 32.3862 52.2967 32.7466 51.6541 33.3871C51.0114 34.0276 50.6499 34.8961 50.6488 35.8019V124.149L50.1918 124.287L40.4087 127.274C39.9451 127.415 39.4443 127.366 39.0163 127.14C38.5882 126.913 38.268 126.526 38.1258 126.064L9.02557 31.3168C8.88396 30.8547 8.93222 30.3554 9.15977 29.9287C9.38731 29.502 9.77551 29.1828 10.239 29.0413L25.3148 24.44L69.0199 11.1054L84.0955 6.50416C84.3249 6.43378 84.566 6.40918 84.805 6.43178C85.044 6.45438 85.2761 6.52374 85.4882 6.63587C85.7002 6.748 85.888 6.90072 86.0408 7.08527C86.1936 7.26983 86.3083 7.4826 86.3785 7.71142L93.8169 31.9296L93.9563 32.3851Z"
                   fill="#F5F7F9"
@@ -136,7 +142,7 @@ function App() {
                 <path
                   d="M137.717 132.611H60.4757C59.9607 132.61 59.4669 132.406 59.1028 132.043C58.7386 131.68 58.5338 131.188 58.5332 130.675V38.4214C58.5338 37.9081 58.7386 37.416 59.1028 37.053C59.4669 36.69 59.9607 36.4858 60.4757 36.4853H137.717C138.232 36.4859 138.725 36.69 139.089 37.053C139.454 37.416 139.658 37.9081 139.659 38.4214V130.675C139.658 131.188 139.454 131.68 139.089 132.043C138.725 132.406 138.232 132.61 137.717 132.611Z"
                   fill="#C6CFDC"
-                  fill-opacity="0.5"
+                  fillOpacity="0.5"
                 />
                 <path
                   d="M102.181 31.9296H54.0768C53.0469 31.931 52.0596 32.3395 51.3314 33.0654C50.6031 33.7912 50.1934 34.7754 50.1919 35.8019V128.693L50.6489 128.554V35.8019C50.65 34.8961 51.0115 34.0276 51.6542 33.3871C52.2968 32.7466 53.168 32.3862 54.0768 32.3851H102.323L102.181 31.9296ZM144.115 31.9296H54.0768C53.0469 31.931 52.0596 32.3395 51.3314 33.0654C50.6031 33.7912 50.1934 34.7754 50.1919 35.8019V140.128C50.1934 141.154 50.6031 142.138 51.3314 142.864C52.0596 143.59 53.0469 143.999 54.0768 144H144.115C145.145 143.999 146.132 143.59 146.86 142.864C147.589 142.138 147.998 141.154 148 140.128V35.8019C147.998 34.7754 147.589 33.7912 146.86 33.0654C146.132 32.3395 145.145 31.931 144.115 31.9296ZM147.543 140.128C147.542 141.034 147.18 141.902 146.538 142.542C145.895 143.183 145.024 143.543 144.115 143.544H54.0768C53.168 143.543 52.2968 143.183 51.6542 142.542C51.0115 141.902 50.65 141.034 50.6489 140.128V35.8019C50.65 34.8961 51.0115 34.0276 51.6542 33.3871C52.2968 32.7466 53.168 32.3862 54.0768 32.3851H144.115C145.024 32.3862 145.895 32.7466 146.538 33.3871C147.18 34.0276 147.542 34.8961 147.543 35.8019V140.128Z"
@@ -164,7 +170,7 @@ function App() {
             <h4 className="text-slateblue text-lg font-medium my-6">
               You have no tasks listed.
             </h4>
-            <button className="flex items-center gap-2 bg-primary bg-opacity-10 px-4 py-3 rounded-lg">
+            <button className="flex items-center gap-2 bg-primary bg-opacity-10 px-4 py-3 rounded-xl">
               <svg
                 width="15"
                 height="14"
@@ -187,7 +193,6 @@ function App() {
                   strokeLinejoin="round"
                 />
               </svg>
-
               <p className="text-primary">Create task</p>
             </button>
           </section>

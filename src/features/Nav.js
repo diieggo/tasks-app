@@ -1,8 +1,8 @@
 function Nav() {
   return (
     <>
-      <nav className="nav-mobile w-full p-4 fixed z-20 bottom-0 flex items-baseline bg-white border-t border-palewhite md:hidden">
-        <li className="list-none w-[52px] mx-auto">
+      <nav className="nav-mobile w-full p-4 fixed z-20 bottom-0 flex justify-evenly items-baseline bg-white border-t border-palewhite md:hidden">
+        <li className="list-none w-[60px] flex justify-center">
           <button className="flex flex-col items-center">
             <svg
               width="24"
@@ -19,7 +19,7 @@ function Nav() {
             <p className="text-primary mt-1">Todo</p>
           </button>
         </li>
-        <li className="list-none w-[52px] mx-auto">
+        <li className="list-none w-[60px] flex justify-center">
           <button className="flex flex-col items-center">
             <svg
               width="24"
@@ -53,7 +53,7 @@ function Nav() {
             <p className="text-mutedazure mt-1">Create</p>
           </button>
         </li>
-        <li className="list-none w-[52px] mx-auto">
+        <li className="list-none w-[60px] flex justify-center">
           <button className="flex flex-col items-center">
             <svg
               width="24"
