@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function TodoDropdown({onDelete}) {
+function TodoDropdown({ onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -38,12 +38,12 @@ function TodoDropdown({onDelete}) {
         </svg>
       </button>
       <div
-        className={`absolute z-10 right-0 mt-2 bg-white border border-palewhite p-2 rounded-xl transition-all ease-in-out ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`absolute z-10 right-0 mt-2 bg-white border border-palewhite p-2 rounded-xl ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
       >
         <ul>
           <li>
             <button
-              className="w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-in-out hover:bg-primary hover:bg-opacity-10 "
+              className="w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-in-out hover:bg-primary hover:bg-opacity-10"
               onClick={() => handleOptionClick()}
             >
               Edit
@@ -53,8 +53,8 @@ function TodoDropdown({onDelete}) {
             <button
               className="w-full px-3 py-2 rounded-lg text-left text-red-500 transition-all ease-in-out hover:bg-red-50"
               onClick={() => {
-                handleOptionClick()
-                onDelete()
+                handleOptionClick();
+                onDelete();
               }}
             >
               Delete

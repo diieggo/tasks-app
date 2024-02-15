@@ -13,7 +13,6 @@ function TodoItem({
         type="checkbox"
         className="w-6 h-6 mt-[2px] bg-palewhite text-primary border-mutedazure border-2 rounded-md focus:ring-primary"
         onClick={() => {
-          console.log(onComplete);
           onComplete();
         }}
         defaultChecked={completed}

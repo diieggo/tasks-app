@@ -3,7 +3,8 @@ import { Header } from "./features/Header";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoList } from "./components/TodoList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { TodoFilter } from "./components/TodoFilter";
 
 const defaultTodos = [
   { title: "Task 1", description: "Description", completed: true },
@@ -22,12 +23,16 @@ const defaultTodos = [
 function App() {
   const [todos, setTodos] = useState(defaultTodos);
   const [searchValue, setSearchValue] = useState("");
+  const [renderTodos, setRenderTodos] = useState([...todos])
 
-  // eslint-disable-next-line
+  useEffect(() => {
+    setRenderTodos([...todos])
+  }, [todos])
+
   const completedTodos = todos.filter((todo) => todo.completed === true);
   const pendingTodos = todos.filter((todo) => todo.completed === false);
 
-  const searchedTodo = todos.filter((todo) => {
+  const searchedTodo = renderTodos.filter((todo) => {
     const todoTile = todo.title.toLowerCase();
     const todoDescription = todo.description.toLowerCase();
     return (
@@ -48,6 +53,16 @@ function App() {
     setTodos(newTodos)
   }
 
+  const filterTodos = (filter) => {
+    if (filter === "Pending") {
+      setRenderTodos(pendingTodos)
+    } else if (filter === "Completed") {
+      setRenderTodos(completedTodos)
+    } else {
+      setRenderTodos(todos)
+    }
+  }
+
   return (
     <>
       <Nav />
@@ -58,10 +73,10 @@ function App() {
             <h2 className="text-2xl font-semibold text-secondary">
               Welcome, <span className="text-primary">Diego</span>
             </h2>
-            <TodoCounter pendingTodosCounter={pendingTodos.length} />
+            <TodoCounter pendingTodosCounter={pendingTodos.length} allTodosCounter={todos.length} />
           </div>
-          <div>
-            {/* TodoFilter */}
+          <div className="flex flex-row-reverse gap-2">
+            <TodoFilter onFilter={filterTodos} />
             <TodoSearch
               searchValue={searchValue}
               setSearchValue={setSearchValue}

@@ -5,7 +5,7 @@ function TodoList({ todoList, checkTodoAction, deleteTodoAction }) {
     <ul className="flex flex-col gap-4">
       {todoList.map((todo, index) => (
         <TodoItem
-          key={index}
+          key={todo.title}
           title={todo.title}
           description={todo.description}
           completed={todo.completed}
