@@ -1,13 +1,22 @@
 import { useState } from "react";
 
-function TodoModal({ id, title, description, completed, handleIsOpenModal, onUpdate }) {
-  const [newTitle, setNewTitle] = useState(title)
-  const [newDescription, setNewDescription] = useState(description)
-  const [newCompleted, setNewComplete] = useState(completed)
+function TodoModal({ useFor, id, title, description, completed, handleIsOpenModal, onSubmit }) {
+  const [modalTitle, setModalTitle] = useState(title || "")
+  const [modalDescription, setModalDescription] = useState(description || "")
+  const [modalCompleted, setModalCompleted] = useState(completed || "")
 
   const handleUpdateTodo = () => {
-    onUpdate(id, newTitle, newDescription, newCompleted)
+    if (useFor) {
+      onSubmit(id, modalTitle, modalDescription, modalCompleted)
+    } else {
+      onSubmit(modalTitle, modalDescription, modalCompleted)
+    }
   }
+
+  const modalText = [
+    { headerText: "Create task", buttonText: "Create" },
+    { headerText: "Update task", buttonText: "Update" },
+  ]
 
   return (
     <div
@@ -17,7 +26,7 @@ function TodoModal({ id, title, description, completed, handleIsOpenModal, onUpd
         <div className="relative bg-white rounded-xl shadow dark:bg-gray-700">
           <div className="flex items-center justify-between p-4 border-b border-mutedazure">
             <h3 className="text-xl font-semibold text-secondary">
-              Update task
+              { modalText[useFor].headerText }
             </h3>
             <button
               className="text-slateblue hover:text-primary w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -57,8 +66,8 @@ function TodoModal({ id, title, description, completed, handleIsOpenModal, onUpd
                   name="title"
                   id="title"
                   autoComplete="off"
-                  defaultValue={title}
-                  onChange={(e) => setNewTitle(e.target.value)}
+                  defaultValue={modalTitle}
+                  onChange={(e) => setModalTitle(e.target.value)}
                   className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2"
                   required
                 />
@@ -74,8 +83,8 @@ function TodoModal({ id, title, description, completed, handleIsOpenModal, onUpd
                   name="description"
                   id="description"
                   autoComplete="off"
-                  defaultValue={description}
-                  onChange={(e) => setNewDescription(e.target.value)}
+                  defaultValue={modalDescription}
+                  onChange={(e) => setModalDescription(e.target.value)}
                   className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2"
                   required
                 />
@@ -85,8 +94,8 @@ function TodoModal({ id, title, description, completed, handleIsOpenModal, onUpd
                   type="checkbox"
                   name="completed"
                   id="completed"
-                  defaultChecked={completed}
-                  onClick={() => setNewComplete(!newCompleted)}
+                  defaultChecked={modalCompleted}
+                  onClick={() => setModalCompleted(!modalCompleted)}
                   className="w-5 h-5 mt-[2px] bg-transparent text-primary border-mutedazure border-2 rounded-md focus:ring-primary"
                 />
                 <label className="text-secondary" htmlFor="completed">Completed</label>
@@ -95,7 +104,7 @@ function TodoModal({ id, title, description, completed, handleIsOpenModal, onUpd
                 type="submit"
                 className="w-full text-white bg-primary hover:bg-blue-600 transition-all ease-out focus:ring-2 font-medium rounded-lg px-4 py-2 text-center"
               >
-                Update task
+                { modalText[useFor].buttonText }
               </button>
             </form>
           </div>

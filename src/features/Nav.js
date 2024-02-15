@@ -1,4 +1,4 @@
-function Nav() {
+function Nav({ handleIsOpenModal }) {
   return (
     <>
       <nav className="nav-mobile w-full p-4 fixed z-20 bottom-0 flex justify-evenly items-baseline bg-white border-t border-palewhite md:hidden">
@@ -20,7 +20,10 @@ function Nav() {
           </button>
         </li>
         <li className="list-none w-[60px] flex justify-center">
-          <button className="flex flex-col items-center">
+          <button
+            className="flex flex-col items-center"
+            onClick={handleIsOpenModal}
+          >
             <svg
               width="24"
               height="25"

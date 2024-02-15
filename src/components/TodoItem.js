@@ -15,7 +15,7 @@ function TodoItem({
 
   const handleIsOpenModal = () => {
     setIsModalOpen(!isModalOpen)
-    console.log("Open Modal")
+    console.log("Open/Close Edit Modal")
   }
 
   return (
@@ -50,13 +50,13 @@ function TodoItem({
       </li>
       {isModalOpen && (
         <TodoModal
+          useFor={1}
           id={id}
           title={title}
           description={description}
           completed={completed}
-          isModalOpen={isModalOpen}
           handleIsOpenModal={handleIsOpenModal}
-          onUpdate={onUpdate}
+          onSubmit={onUpdate}
         />
       )}
     </>

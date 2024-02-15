@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import { Nav } from "./features/Nav";
 import { Header } from "./features/Header";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoList } from "./components/TodoList";
 import { TodoFilter } from "./components/TodoFilter";
+import { TodoModal } from "./components/TodoModal";
 
 const defaultTodos = [
   { id: 1, title: "Task 1", description: "Description", completed: true },
@@ -16,6 +18,7 @@ const defaultTodos = [
 
 function App() {
   const [todos, setTodos] = useState(defaultTodos);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("All");
   const [filter, setFilter] = useState(selectedFilter)
@@ -38,6 +41,13 @@ function App() {
   useEffect(() => {
     setFilter(selectedFilter)
   }, [selectedFilter, searchValue, todos])
+
+  const createTodo = (title, description, completed) => {
+    const newTodo = { id: uuidv4(), title: title, description: description, completed: completed }
+    setTodos((prevTodos) => {
+      return [...prevTodos, newTodo]
+    })
+  }
 
   const checkTodo = (id) => {
     setTodos((prevTodos) => {
@@ -68,9 +78,14 @@ function App() {
     console.log(`Todo Updated, ID: ${id}`)
   }
 
+  const handleIsOpenModal = () => {
+    setIsCreateModalOpen(!isCreateModalOpen)
+    console.log("Open/Close Create Modal")
+  }
+
   return (
     <>
-      <Nav />
+      <Nav handleIsOpenModal={handleIsOpenModal} />
       <div className="App mx-auto mt-10 max-w-[800px] lg:max-w-[1080px]">
         <Header />
         <section className="w-full px-6 mt-6 flex flex-col gap-6">
@@ -91,7 +106,10 @@ function App() {
         {todos.length > 0 ? (
           <section className="w-full px-6 mt-9 mb-32 md:mb-8">
             <div className="flex items-center justify-between mb-4 md:mb-6">
-              <button className="hidden bg-primary bg-opacity-10 px-4 py-3 gap-2 rounded-xl md:flex">
+              <button
+                className="hidden bg-primary bg-opacity-10 px-4 py-3 gap-2 rounded-xl md:flex"
+                onClick={() => setIsCreateModalOpen(true)}
+              >
                 <svg
                   width="24"
                   height="25"
@@ -218,6 +236,10 @@ function App() {
           </section>
         )}
       </div>
+      {isCreateModalOpen && (
+        <TodoModal useFor={0} handleIsOpenModal={handleIsOpenModal} onSubmit={createTodo} />
+      )
+      }
     </>
   );
 }
