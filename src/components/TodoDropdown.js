@@ -22,7 +22,7 @@ function TodoDropdown({ onDelete }) {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative h-5" ref={dropdownRef}>
       <button
         className="inline-flex text-slateblue"
         onClick={() => setIsOpen(!isOpen)}

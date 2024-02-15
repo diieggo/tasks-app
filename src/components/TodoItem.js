@@ -1,6 +1,7 @@
 import { TodoDropdown } from "./TodoDropdown";
 
 function TodoItem({
+  index,
   title,
   description,
   completed,
