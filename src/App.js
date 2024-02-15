@@ -1,38 +1,28 @@
+import { useEffect, useState } from "react";
 import { Nav } from "./features/Nav";
 import { Header } from "./features/Header";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoList } from "./components/TodoList";
-import { useEffect, useState } from "react";
 import { TodoFilter } from "./components/TodoFilter";
 
 const defaultTodos = [
-  { title: "Task 1", description: "Description", completed: true },
-  { title: "Task 2", description: "", completed: false },
-  { title: "Task 3", description: "Description", completed: true },
-  { title: "Task 4", description: "", completed: false },
-  { title: "Task 5", description: "Description", completed: false },
-  {
-    title: "Design sign up flow",
-    description:
-      "By the time a prospect arrives at your signup page, in most cases, they've already By the time a prospect arrives at your signup page, in most cases.",
-    completed: false,
-  },
+  { id: 1, title: "Task 1", description: "Description", completed: true },
+  { id: 2, title: "Task 2", description: "", completed: false },
+  { id: 3, title: "Task 3", description: "Description", completed: true },
+  { id: 4, title: "Task 4", description: "", completed: false },
+  { id: 5, title: "Task 5", description: "Description", completed: true },
 ];
 
 function App() {
   const [todos, setTodos] = useState(defaultTodos);
   const [searchValue, setSearchValue] = useState("");
-  const [renderTodos, setRenderTodos] = useState([...todos])
-
-  useEffect(() => {
-    setRenderTodos([...todos])
-  }, [todos])
-
-  const completedTodos = todos.filter((todo) => todo.completed === true);
+  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [filter, setFilter] = useState(selectedFilter)
+  
   const pendingTodos = todos.filter((todo) => todo.completed === false);
 
-  const searchedTodo = renderTodos.filter((todo) => {
+  const searchedTodo = todos.filter((todo) => {
     const todoTile = todo.title.toLowerCase();
     const todoDescription = todo.description.toLowerCase();
     return (
@@ -41,26 +31,41 @@ function App() {
     );
   });
 
-  const checkTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos[index].completed = !newTodos[index].completed;
-    setTodos(newTodos);
-  };
-
-  const deleteTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1)
-    setTodos(newTodos)
+  const handleFilter = (filter) => {
+    setSelectedFilter(filter)
   }
 
-  const filterTodos = (filter) => {
-    if (filter === "Pending") {
-      setRenderTodos(pendingTodos)
-    } else if (filter === "Completed") {
-      setRenderTodos(completedTodos)
-    } else {
-      setRenderTodos(todos)
-    }
+  useEffect(() => {
+    setFilter(selectedFilter)
+  }, [selectedFilter, searchValue, todos])
+
+  const checkTodo = (id) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, completed: !todo.completed };
+        }
+        return todo;
+      });
+    });
+    console.log(`Todo Checked, ID: ${id}`)
+  };
+
+  const deleteTodo = (id) => {
+    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
+    console.log(`Todo Deleted, ID: ${id}`)
+  }
+
+  const updateTodo = ( id, newTitle, newDescription, newCompleted) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, title: newTitle, description: newDescription, completed: newCompleted }
+        }
+        return todo
+      })
+    })
+    console.log(`Todo Updated, ID: ${id}`)
   }
 
   return (
@@ -76,7 +81,7 @@ function App() {
             <TodoCounter pendingTodosCounter={pendingTodos.length} allTodosCounter={todos.length} />
           </div>
           <div className="flex flex-row-reverse gap-2">
-            <TodoFilter onFilter={filterTodos} />
+            <TodoFilter handleFilter={handleFilter} currentFilter={selectedFilter} />
             <TodoSearch
               searchValue={searchValue}
               setSearchValue={setSearchValue}
@@ -122,7 +127,7 @@ function App() {
               </button>
               <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <TodoList todoList={searchedTodo} checkTodoAction={checkTodo} deleteTodoAction={deleteTodo} />
+            <TodoList todoList={searchedTodo} filter={filter} checkTodoAction={checkTodo} deleteTodoAction={deleteTodo} updateTodoAction={updateTodo} />
           </section>
         ) : (
           <section className="w-full h-[calc(100vh-200px)] min-h-96 mb-[86px] px-6 flex flex-col items-center justify-center md:mb-0">

@@ -1,41 +1,65 @@
+import { useState } from "react";
 import { TodoDropdown } from "./TodoDropdown";
+import { TodoModal } from "./TodoModal";
 
 function TodoItem({
-  index,
+  id,
   title,
   description,
   completed,
   onComplete,
   onDelete,
+  onUpdate
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleIsOpenModal = () => {
+    setIsModalOpen(!isModalOpen)
+    console.log("Open Modal")
+  }
+
   return (
-    <li className="flex p-4 gap-4 bg-palewhite rounded-xl">
-      <input
-        type="checkbox"
-        className="w-6 h-6 mt-[2px] bg-palewhite text-primary border-mutedazure border-2 rounded-md focus:ring-primary"
-        onClick={() => {
-          onComplete();
-        }}
-        defaultChecked={completed}
-      />
-      <div className="w-full">
-        <div className="w-full flex justify-between items-center">
-          <h4
-            className={`text-secondary text-xl font-medium ${completed && "line-through text-slateblue"}`}
-          >
-            {title}
-          </h4>
-          <TodoDropdown onDelete={onDelete} />
+    <>
+      <li className="flex gap-4 rounded-xl bg-palewhite p-4">
+        <input
+          type="checkbox"
+          className="mt-[2px] h-6 w-6 rounded-md border-2 border-mutedazure bg-palewhite text-primary focus:ring-primary"
+          onChange={() => {
+            onComplete();
+          }}
+          checked={completed}
+        />
+        <div className="w-full">
+          <div className="flex w-full items-center justify-between">
+            <h4
+              className={`text-xl font-medium text-secondary ${completed && "text-slateblue line-through"}`}
+            >
+              {title}
+            </h4>
+            <TodoDropdown
+              onDelete={onDelete}
+              openModalAction={handleIsOpenModal}
+            />
+          </div>
+          {description && (
+            <p className="mt-2 text-lg font-normal text-slateblue">
+              {description}
+            </p>
+          )}
         </div>
-        {description ? (
-          <p className="text-slateblue text-lg font-normal mt-2">
-            {description}
-          </p>
-        ) : (
-          ""
-        )}
-      </div>
-    </li>
+      </li>
+      {isModalOpen && (
+        <TodoModal
+          id={id}
+          title={title}
+          description={description}
+          completed={completed}
+          isModalOpen={isModalOpen}
+          handleIsOpenModal={handleIsOpenModal}
+          onUpdate={onUpdate}
+        />
+      )}
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function TodoDropdown({ onDelete }) {
+function TodoDropdown({ onDelete, openModalAction }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -44,7 +44,10 @@ function TodoDropdown({ onDelete }) {
           <li>
             <button
               className="w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-in-out hover:bg-primary hover:bg-opacity-10"
-              onClick={() => handleOptionClick()}
+              onClick={() => {
+                handleOptionClick();
+                openModalAction();
+              }}
             >
               Edit
             </button>

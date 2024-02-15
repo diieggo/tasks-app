@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
-function TodoFilter({ onFilter }) {
+function TodoFilter({ handleFilter, currentFilter }) {
   const [isOpen, setIsOpen] = useState(false);
   const [optionSelected, setOptionSelected] = useState("All");
+  const dropdownRef = useRef(null);
 
   const filterOptions = ["All", "Pending", "Completed"];
-
-  const dropdownRef = useRef(null);
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -21,13 +20,17 @@ function TodoFilter({ onFilter }) {
     };
   }, []);
 
+  useEffect(() => {
+    handleFilter(optionSelected)
+  }, [optionSelected])
+
   return (
     <div className="relative" ref={dropdownRef}>
       <div
         className={`w-32 h-full flex items-center justify-between px-3 bg-palewhite rounded-xl border-2 cursor-pointer ${isOpen ? "border-primary" : " border-transparent"} md:px-4 md:w-36`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-primary">{optionSelected}</p>
+        <p className="text-primary">{currentFilter}</p>
         <svg
           width="20"
           height="20"
@@ -51,10 +54,9 @@ function TodoFilter({ onFilter }) {
             return (
               <li key={index}>
                 <button
-                  className={`w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-out hover:bg-primary hover:bg-opacity-10 ${option === optionSelected && "bg-primary bg-opacity-10"}`}
+                  className={`w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-out hover:bg-primary hover:bg-opacity-10 ${option === currentFilter && "bg-primary bg-opacity-10"}`}
                   onClick={() => {
                     setOptionSelected(option);
-                    onFilter(option);
                   }}
                 >
                   {option}
