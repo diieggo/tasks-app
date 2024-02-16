@@ -8,22 +8,30 @@ import { TodoList } from "./components/TodoList";
 import { TodoFilter } from "./components/TodoFilter";
 import { TodoModal } from "./components/TodoModal";
 
-const defaultTodos = [
-  { id: 1, title: "Task 1", description: "Description", completed: true },
-  { id: 2, title: "Task 2", description: "", completed: false },
-  { id: 3, title: "Task 3", description: "Description", completed: true },
-  { id: 4, title: "Task 4", description: "", completed: false },
-  { id: 5, title: "Task 5", description: "Description", completed: true },
-];
-
 function App() {
-  const [todos, setTodos] = useState(defaultTodos);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const [todos, setTodos] = useState([]);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("All");
-  const [filter, setFilter] = useState(selectedFilter)
+  const [filter, setFilter] = useState(selectedFilter);
+  const [theme, setTheme] = useState(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark"
+    } else {
+      return "light"
+    }
+  })
   
-  const pendingTodos = todos.filter((todo) => todo.completed === false);
+  const pendingTodos = todos.filter((todo) => !todo.completed)
+
+  useEffect(() => {
+    setFilter(selectedFilter)
+  }, [selectedFilter, searchValue, todos])
+
+  useEffect(() => {
+    const htmlElementClassList = document.querySelector("html").classList
+    theme === "light" ? htmlElementClassList.remove("dark") : htmlElementClassList.add("dark")
+  }, [theme])
 
   const searchedTodo = todos.filter((todo) => {
     const todoTile = todo.title.toLowerCase();
@@ -38,9 +46,18 @@ function App() {
     setSelectedFilter(filter)
   }
 
-  useEffect(() => {
-    setFilter(selectedFilter)
-  }, [selectedFilter, searchValue, todos])
+  const handleIsOpenModal = () => {
+    setIsCreateModalOpen(!isCreateModalOpen)
+    console.log("Open/Close Create Modal")
+  }
+
+  const handleChangeTheme = () => {
+    setTheme((prevTheme) => {
+      return prevTheme === "light" ? "dark" : "light"
+    })
+  }
+
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', handleChangeTheme)
 
   const createTodo = (title, description, completed) => {
     const newTodo = { id: uuidv4(), title: title, description: description, completed: completed }
@@ -78,19 +95,14 @@ function App() {
     console.log(`Todo Updated, ID: ${id}`)
   }
 
-  const handleIsOpenModal = () => {
-    setIsCreateModalOpen(!isCreateModalOpen)
-    console.log("Open/Close Create Modal")
-  }
-
   return (
     <>
-      <Nav handleIsOpenModal={handleIsOpenModal} />
+      <Nav handleIsOpenModal={handleIsOpenModal} handleChangeTheme={handleChangeTheme} />
       <div className="App mx-auto mt-10 max-w-[800px] lg:max-w-[1080px]">
-        <Header />
+        <Header handleChangeTheme={handleChangeTheme} />
         <section className="w-full px-6 mt-6 flex flex-col gap-6">
           <div>
-            <h2 className="text-2xl font-semibold text-secondary">
+            <h2 className="text-2xl font-semibold text-secondary transition-colors dark:text-white">
               Welcome, <span className="text-primary">Diego</span>
             </h2>
             <TodoCounter pendingTodosCounter={pendingTodos.length} allTodosCounter={todos.length} />
@@ -231,7 +243,7 @@ function App() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="text-primary">Create task</p>
+              <p className="text-primary" onClick={handleIsOpenModal}>Create task</p>
             </button>
           </section>
         )}

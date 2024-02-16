@@ -6,10 +6,10 @@ function TodoList({ todoList, filter, checkTodoAction, deleteTodoAction, updateT
 
   useEffect(() => {
     if (filter === "Pending") {
-      const pendingTodos = todoList.filter((todo) => todo.completed === false);
+      const pendingTodos = todoList.filter((todo) => !todo.completed);
       setTodosToRender(pendingTodos)
     } else if (filter === "Completed") {
-      const completedTodos = todoList.filter((todo) => todo.completed === true);
+      const completedTodos = todoList.filter((todo) => todo.completed);
       setTodosToRender(completedTodos)
     } else {
       setTodosToRender(todoList)

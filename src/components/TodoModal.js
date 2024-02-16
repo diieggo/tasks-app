@@ -20,12 +20,12 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
 
   return (
     <div
-      className={`overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 flex justify-center items-center w-full h-full bg-gray-600 bg-opacity-50`}
+      className={`overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50`}
     >
       <div className="relative p-4 w-full max-w-md max-h-full">
-        <div className="relative bg-white rounded-xl shadow dark:bg-gray-700">
-          <div className="flex items-center justify-between p-4 border-b border-mutedazure">
-            <h3 className="text-xl font-semibold text-secondary">
+        <div className="relative bg-white rounded-xl shadow transition-colors dark:bg-gray-800">
+          <div className="flex items-center justify-between p-4 border-b border-mutedazure transition-colors dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-secondary transition-colors dark:text-white">
               { modalText[useFor].headerText }
             </h3>
             <button
@@ -57,7 +57,7 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   }}>
               <div>
                 <label
-                  className="block mb-2 text-secondary"
+                  className="block mb-2 text-secondary transition-colors dark:text-slateblue"
                 >
                   Title
                 </label>
@@ -68,13 +68,13 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   autoComplete="off"
                   defaultValue={modalTitle}
                   onChange={(e) => setModalTitle(e.target.value)}
-                  className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2"
+                  className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2 transition-colors dark:bg-gray-700 dark:border-slateblue dark:focus:border-primary dark:text-white"
                   required
                 />
               </div>
               <div>
                 <label
-                  className="block mb-2 text-secondary"
+                  className="block mb-2 text-secondary transition-colors dark:text-slateblue"
                 >
                   Description
                 </label>
@@ -85,8 +85,7 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   autoComplete="off"
                   defaultValue={modalDescription}
                   onChange={(e) => setModalDescription(e.target.value)}
-                  className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2"
-                  required
+                  className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-slateblue dark:focus:border-primary dark:text-white"
                 />
               </div>
               <div className="flex items-center gap-3">
@@ -96,9 +95,9 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   id="completed"
                   defaultChecked={modalCompleted}
                   onClick={() => setModalCompleted(!modalCompleted)}
-                  className="w-5 h-5 mt-[2px] bg-transparent text-primary border-mutedazure border-2 rounded-md focus:ring-primary"
+                  className="w-5 h-5 mt-[2px] bg-transparent text-primary border-mutedazure border-2 rounded-md focus:ring-primary transition-colors dark:focus:ring-offset-gray-800"
                 />
-                <label className="text-secondary" htmlFor="completed">Completed</label>
+                <label className="text-secondary transition-colors dark:text-slateblue" htmlFor="completed">Completed</label>
               </div>
               <button
                 type="submit"

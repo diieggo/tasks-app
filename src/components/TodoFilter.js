@@ -27,7 +27,7 @@ function TodoFilter({ handleFilter, currentFilter }) {
   return (
     <div className="relative" ref={dropdownRef}>
       <div
-        className={`w-32 h-full flex items-center justify-between px-3 bg-palewhite rounded-xl border-2 cursor-pointer ${isOpen ? "border-primary" : " border-transparent"} md:px-4 md:w-36`}
+        className={`w-32 h-full flex items-center justify-between px-3 bg-palewhite rounded-xl border-2 cursor-pointer transition-colors ${isOpen ? "border-primary" : " border-transparent"} md:px-4 md:w-36 dark:bg-gray-800`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <p className="text-primary">{currentFilter}</p>
@@ -47,7 +47,7 @@ function TodoFilter({ handleFilter, currentFilter }) {
         </svg>
       </div>
       <div
-        className={`absolute w-full z-10 right-0 mt-2 bg-palewhite border-2 border-primary border-opacity-50 p-2 rounded-xl ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`absolute w-full z-10 right-0 mt-2 bg-palewhite border-2 border-primary border-opacity-50 p-2 rounded-xl transition-colors ${isOpen ? "visible opacity-100" : "invisible opacity-0"} dark:bg-gray-800 dark:border-gray`}
       >
         <ul className="flex flex-col gap-2">
           {filterOptions.map((option, index) => {

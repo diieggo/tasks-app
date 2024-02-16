@@ -1,14 +1,18 @@
-function Header() {
+function Header({ handleChangeTheme }) {
   return (
     <header className="w-full flex justify-between items-center px-6">
-      <h1 className="text-3xl font-bold text-secondary">Tasks</h1>
+      <h1 className="text-3xl font-bold text-secondary transition-colors dark:text-white">Tasks</h1>
       <div className="flex items-center gap-8">
-        <button className="hidden p-2 border-2 border-palewhite rounded-lg md:block">
+        <button
+          className="hidden p-2 border-2 border-palewhite rounded-lg transition-colors md:block dark:border-gray-800"
+          onClick={handleChangeTheme}
+        >
           <svg
             width="24"
             height="24"
             viewBox="0 0 40 40"
             fill="none"
+            className="hidden dark:block"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -19,9 +23,25 @@ function Header() {
               strokeLinejoin="round"
             />
           </svg>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 40 40"
+            fill="none"
+            className="block dark:hidden"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M36.2533 25.0032C34.2721 25.829 32.1464 26.2527 30 26.2499C25.6902 26.2499 21.557 24.5379 18.5095 21.4904C15.462 18.4429 13.75 14.3097 13.75 9.99992C13.75 7.78325 14.1933 5.67158 14.9967 3.74658C12.0358 4.98177 9.50661 7.0655 7.72771 9.73534C5.94881 12.4052 4.99973 15.5417 5 18.7499C5 23.0597 6.71205 27.1929 9.75952 30.2404C12.807 33.2879 16.9402 34.9999 21.25 34.9999C24.4582 35.0002 27.5947 34.0511 30.2646 32.2722C32.9344 30.4933 35.0181 27.9641 36.2533 25.0032Z"
+              stroke="#007FFF"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
         <div className="flex gap-3 items-center">
-          <p className="text-lg font-medium text-secondary">Diego</p>
+          <p className="text-lg font-medium text-secondary transition-colors dark:text-white">Diego</p>
           <span className="bg-primary bg-opacity-25 py-2 px-3 rounded-full text-xl">
             🚀
           </span>

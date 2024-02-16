@@ -1,7 +1,7 @@
-function Nav({ handleIsOpenModal }) {
+function Nav({ handleIsOpenModal, handleChangeTheme }) {
   return (
     <>
-      <nav className="nav-mobile w-full p-4 fixed z-20 bottom-0 flex justify-evenly items-baseline bg-white border-t border-palewhite md:hidden">
+      <nav className="nav-mobile w-full p-4 fixed z-20 bottom-0 flex justify-evenly items-baseline bg-white border-t-2 border-palewhite transition-colors md:hidden dark:bg-gray-900 dark:border-gray-800">
         <li className="list-none w-[60px] flex justify-center">
           <button className="flex flex-col items-center">
             <svg
@@ -57,13 +57,16 @@ function Nav({ handleIsOpenModal }) {
           </button>
         </li>
         <li className="list-none w-[60px] flex justify-center">
-          <button className="flex flex-col items-center">
+          <button
+            className="flex flex-col items-center"
+            onClick={handleChangeTheme}
+          >
             <svg
               width="24"
               height="24"
               viewBox="0 0 40 40"
               fill="none"
-              className="block dark:hidden"
+              className="hidden dark:block"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -79,7 +82,7 @@ function Nav({ handleIsOpenModal }) {
               height="24"
               viewBox="0 0 40 40"
               fill="none"
-              className="hidden dark:block"
+              className="block dark:hidden"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -90,7 +93,6 @@ function Nav({ handleIsOpenModal }) {
                 strokeLinejoin="round"
               />
             </svg>
-
             <p className="text-mutedazure mt-1">Theme</p>
           </button>
         </li>

@@ -38,7 +38,7 @@ function TodoDropdown({ onDelete, openModalAction }) {
         </svg>
       </button>
       <div
-        className={`absolute z-10 right-0 mt-2 bg-white border border-palewhite p-2 rounded-xl ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`absolute z-10 right-0 mt-2 bg-white border border-palewhite p-2 rounded-xl ${isOpen ? "visible opacity-100" : "invisible opacity-0"} transition-colors dark:bg-gray-800 dark:border-gray-900`}
       >
         <ul>
           <li>
@@ -54,7 +54,7 @@ function TodoDropdown({ onDelete, openModalAction }) {
           </li>
           <li>
             <button
-              className="w-full px-3 py-2 rounded-lg text-left text-red-500 transition-all ease-in-out hover:bg-red-50"
+              className="w-full px-3 py-2 rounded-lg text-left text-red-500 transition-all ease-in-out hover:bg-red-500 hover:bg-opacity-10"
               onClick={() => {
                 handleOptionClick();
                 onDelete();

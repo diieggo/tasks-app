@@ -20,10 +20,10 @@ function TodoItem({
 
   return (
     <>
-      <li className="flex gap-4 rounded-xl bg-palewhite p-4">
+      <li className="flex gap-4 rounded-xl bg-palewhite p-4 transition-colors dark:bg-gray-800">
         <input
           type="checkbox"
-          className="mt-[2px] h-6 w-6 rounded-md border-2 border-mutedazure bg-palewhite text-primary focus:ring-primary"
+          className="mt-[2px] h-6 w-6 rounded-md border-2 border-mutedazure bg-transparent text-primary focus:ring-primary transition-colors dark:focus:ring-offset-gray-800"
           onChange={() => {
             onComplete();
           }}
@@ -32,7 +32,7 @@ function TodoItem({
         <div className="w-full">
           <div className="flex w-full items-center justify-between">
             <h4
-              className={`text-xl font-medium text-secondary ${completed && "text-slateblue line-through"}`}
+              className={`text-xl font-medium transition-colors ${completed ? "text-slateblue line-through" : "text-secondary dark:text-white"}`}
             >
               {title}
             </h4>

@@ -1,6 +1,6 @@
 function TodoSearch({ searchValue, setSearchValue }) {
   return (
-    <div className="w-full flex items-center px-4 bg-palewhite rounded-xl">
+    <div className="w-full flex items-center px-4 bg-palewhite rounded-xl transition-colors dark:bg-gray-800">
       <svg
         width="20"
         height="20"
@@ -18,7 +18,7 @@ function TodoSearch({ searchValue, setSearchValue }) {
         placeholder="Search..."
         value={ searchValue }
         onChange={ (e) => setSearchValue(e.target.value) }
-        className="form-input w-full bg-transparent border-0 text-lg placeholder-slateblue text-secondary focus:ring-0"
+        className="form-input w-full bg-transparent border-0 text-lg placeholder-slateblue text-secondary focus:ring-0 transition-colors dark:text-white"
       />
     </div>
   );

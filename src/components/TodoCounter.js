@@ -1,9 +1,12 @@
 function TodoCounter({ allTodosCounter, pendingTodosCounter }) {
   return (
     <p className="text-slateblue text-lg mt-1">
-      {allTodosCounter
-        ? `You've got ${pendingTodosCounter} tasks to do.`
-        : "Create tasks to achieve more."}
+      {allTodosCounter > 0
+        ? pendingTodosCounter > 0
+          ? `You've got ${pendingTodosCounter} tasks to do.`
+          : "Congratulations, you completed all your tasks 🎉."
+        : "Create tasks to achieve more."
+      }
     </p>
   );
 }
