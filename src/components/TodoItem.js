@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { TodoDropdown } from "./TodoDropdown";
-import { TodoModal } from "./TodoModal";
+import { TodoDropdown, TodoModal } from "./index";
 
 function TodoItem({
   id,

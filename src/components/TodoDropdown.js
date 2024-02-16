@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { IconMenuKebab } from "../imgs/icons";
 
 function TodoDropdown({ onDelete, openModalAction }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,15 +28,7 @@ function TodoDropdown({ onDelete, openModalAction }) {
         className="inline-flex text-slateblue"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <svg
-          className="h-5 w-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
-          viewBox="0 0 16 3"
-        >
-          <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-        </svg>
+        <IconMenuKebab />
       </button>
       <div
         className={`absolute right-0 z-10 mt-2 rounded-xl border border-palewhite bg-white p-2 ${isOpen ? "visible opacity-100" : "invisible opacity-0"} transition-colors dark:border-gray-900 dark:bg-gray-800`}

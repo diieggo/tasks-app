@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IconClose } from "../imgs/icons";
 
 function TodoModal({
   useFor,
@@ -40,21 +41,7 @@ function TodoModal({
               className="ms-auto inline-flex h-8 w-8 items-center justify-center text-slateblue hover:text-primary"
               onClick={handleIsOpenModal}
             >
-              <svg
-                className="h-3 w-3"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 14"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                />
-              </svg>
+              <IconClose />
             </button>
           </div>
           <div className="p-4">
