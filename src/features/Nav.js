@@ -1,8 +1,8 @@
 function Nav({ handleIsOpenModal, handleChangeTheme }) {
   return (
     <>
-      <nav className="nav-mobile w-full p-4 fixed z-20 bottom-0 flex justify-evenly items-baseline bg-white border-t-2 border-palewhite transition-colors md:hidden dark:bg-gray-900 dark:border-gray-800">
-        <li className="list-none w-[60px] flex justify-center">
+      <nav className="nav-mobile fixed bottom-0 z-20 flex w-full items-baseline justify-evenly border-t-2 border-palewhite bg-white p-4 transition-colors dark:border-gray-800 dark:bg-gray-900 md:hidden">
+        <li className="flex w-[60px] list-none justify-center">
           <button className="flex flex-col items-center">
             <svg
               width="24"
@@ -16,10 +16,10 @@ function Nav({ handleIsOpenModal, handleChangeTheme }) {
                 fill="#007FFF"
               />
             </svg>
-            <p className="text-primary mt-1">Todo</p>
+            <p className="mt-1 text-primary">Todo</p>
           </button>
         </li>
-        <li className="list-none w-[60px] flex justify-center">
+        <li className="flex w-[60px] list-none justify-center">
           <button
             className="flex flex-col items-center"
             onClick={handleIsOpenModal}
@@ -53,10 +53,10 @@ function Nav({ handleIsOpenModal, handleChangeTheme }) {
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="text-mutedazure mt-1">Create</p>
+            <p className="mt-1 text-mutedazure">Create</p>
           </button>
         </li>
-        <li className="list-none w-[60px] flex justify-center">
+        <li className="flex w-[60px] list-none justify-center">
           <button
             className="flex flex-col items-center"
             onClick={handleChangeTheme}
@@ -93,7 +93,7 @@ function Nav({ handleIsOpenModal, handleChangeTheme }) {
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="text-mutedazure mt-1">Theme</p>
+            <p className="mt-1 text-mutedazure">Theme</p>
           </button>
         </li>
       </nav>

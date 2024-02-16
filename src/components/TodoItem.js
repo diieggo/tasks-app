@@ -9,21 +9,21 @@ function TodoItem({
   completed,
   onComplete,
   onDelete,
-  onUpdate
+  onUpdate,
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleIsOpenModal = () => {
-    setIsModalOpen(!isModalOpen)
-    console.log("Open/Close Edit Modal")
-  }
+    setIsModalOpen(!isModalOpen);
+    console.log("Open/Close Edit Modal");
+  };
 
   return (
     <>
       <li className="flex gap-4 rounded-xl bg-palewhite p-4 transition-colors dark:bg-gray-800">
         <input
           type="checkbox"
-          className="mt-[2px] h-6 w-6 rounded-md border-2 border-mutedazure bg-transparent text-primary focus:ring-primary transition-colors dark:focus:ring-offset-gray-800"
+          className="mt-[2px] h-6 w-6 rounded-md border-2 border-mutedazure bg-transparent text-primary transition-colors focus:ring-primary dark:focus:ring-offset-gray-800"
           onChange={() => {
             onComplete();
           }}

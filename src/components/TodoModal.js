@@ -1,39 +1,47 @@
 import { useState } from "react";
 
-function TodoModal({ useFor, id, title, description, completed, handleIsOpenModal, onSubmit }) {
-  const [modalTitle, setModalTitle] = useState(title || "")
-  const [modalDescription, setModalDescription] = useState(description || "")
-  const [modalCompleted, setModalCompleted] = useState(completed || "")
+function TodoModal({
+  useFor,
+  id,
+  title,
+  description,
+  completed,
+  handleIsOpenModal,
+  onSubmit,
+}) {
+  const [modalTitle, setModalTitle] = useState(title || "");
+  const [modalDescription, setModalDescription] = useState(description || "");
+  const [modalCompleted, setModalCompleted] = useState(completed || "");
 
   const handleUpdateTodo = () => {
     if (useFor) {
-      onSubmit(id, modalTitle, modalDescription, modalCompleted)
+      onSubmit(id, modalTitle, modalDescription, modalCompleted);
     } else {
-      onSubmit(modalTitle, modalDescription, modalCompleted)
+      onSubmit(modalTitle, modalDescription, modalCompleted);
     }
-  }
+  };
 
   const modalText = [
     { headerText: "Create task", buttonText: "Create" },
     { headerText: "Update task", buttonText: "Update" },
-  ]
+  ];
 
   return (
     <div
-      className={`overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 flex justify-center items-center w-full h-full bg-gray-900 bg-opacity-50`}
+      className={`fixed left-0 right-0 top-0 z-30 flex h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900 bg-opacity-50`}
     >
-      <div className="relative p-4 w-full max-w-md max-h-full">
-        <div className="relative bg-white rounded-xl shadow transition-colors dark:bg-gray-800">
-          <div className="flex items-center justify-between p-4 border-b border-mutedazure transition-colors dark:border-gray-700">
+      <div className="relative max-h-full w-full max-w-md p-4">
+        <div className="relative rounded-xl bg-white shadow transition-colors dark:bg-gray-800">
+          <div className="flex items-center justify-between border-b border-mutedazure p-4 transition-colors dark:border-gray-700">
             <h3 className="text-xl font-semibold text-secondary transition-colors dark:text-white">
-              { modalText[useFor].headerText }
+              {modalText[useFor].headerText}
             </h3>
             <button
-              className="text-slateblue hover:text-primary w-8 h-8 ms-auto inline-flex justify-center items-center"
+              className="ms-auto inline-flex h-8 w-8 items-center justify-center text-slateblue hover:text-primary"
               onClick={handleIsOpenModal}
             >
               <svg
-                className="w-3 h-3"
+                className="h-3 w-3"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -50,15 +58,17 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
             </button>
           </div>
           <div className="p-4">
-            <form className="space-y-6" action="#" onSubmit={(e) => {
-                  e.preventDefault()
-                  handleUpdateTodo()
-                  handleIsOpenModal(false)
-                  }}>
+            <form
+              className="space-y-6"
+              action="#"
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleUpdateTodo();
+                handleIsOpenModal(false);
+              }}
+            >
               <div>
-                <label
-                  className="block mb-2 text-secondary transition-colors dark:text-slateblue"
-                >
+                <label className="mb-2 block text-secondary transition-colors dark:text-slateblue">
                   Title
                 </label>
                 <input
@@ -68,14 +78,12 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   autoComplete="off"
                   defaultValue={modalTitle}
                   onChange={(e) => setModalTitle(e.target.value)}
-                  className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2 transition-colors dark:bg-gray-700 dark:border-slateblue dark:focus:border-primary dark:text-white"
+                  className="block w-full rounded-lg border border-mutedazure p-2 text-lg text-secondary transition-colors focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 dark:border-slateblue dark:bg-gray-700 dark:text-white dark:focus:border-primary"
                   required
                 />
               </div>
               <div>
-                <label
-                  className="block mb-2 text-secondary transition-colors dark:text-slateblue"
-                >
+                <label className="mb-2 block text-secondary transition-colors dark:text-slateblue">
                   Description
                 </label>
                 <input
@@ -85,7 +93,7 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   autoComplete="off"
                   defaultValue={modalDescription}
                   onChange={(e) => setModalDescription(e.target.value)}
-                  className="border border-mutedazure text-secondary text-lg rounded-lg focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:border-primary block w-full p-2 dark:bg-gray-700 dark:border-slateblue dark:focus:border-primary dark:text-white"
+                  className="block w-full rounded-lg border border-mutedazure p-2 text-lg text-secondary focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 dark:border-slateblue dark:bg-gray-700 dark:text-white dark:focus:border-primary"
                 />
               </div>
               <div className="flex items-center gap-3">
@@ -95,15 +103,20 @@ function TodoModal({ useFor, id, title, description, completed, handleIsOpenModa
                   id="completed"
                   defaultChecked={modalCompleted}
                   onClick={() => setModalCompleted(!modalCompleted)}
-                  className="w-5 h-5 mt-[2px] bg-transparent text-primary border-mutedazure border-2 rounded-md focus:ring-primary transition-colors dark:focus:ring-offset-gray-800"
+                  className="mt-[2px] h-5 w-5 rounded-md border-2 border-mutedazure bg-transparent text-primary transition-colors focus:ring-primary dark:focus:ring-offset-gray-800"
                 />
-                <label className="text-secondary transition-colors dark:text-slateblue" htmlFor="completed">Completed</label>
+                <label
+                  className="text-secondary transition-colors dark:text-slateblue"
+                  htmlFor="completed"
+                >
+                  Completed
+                </label>
               </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary hover:bg-blue-600 transition-all ease-out focus:ring-2 font-medium rounded-lg px-4 py-2 text-center"
+                className="w-full rounded-lg bg-primary px-4 py-2 text-center font-medium text-white transition-all ease-out hover:bg-blue-600 focus:ring-2"
               >
-                { modalText[useFor].buttonText }
+                {modalText[useFor].buttonText}
               </button>
             </form>
           </div>

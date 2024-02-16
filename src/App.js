@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { Nav } from "./features/Nav";
 import { Header } from "./features/Header";
 import { TodoCounter } from "./components/TodoCounter";
@@ -16,22 +16,24 @@ function App() {
   const [filter, setFilter] = useState(selectedFilter);
   const [theme, setTheme] = useState(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark"
+      return "dark";
     } else {
-      return "light"
+      return "light";
     }
-  })
-  
-  const pendingTodos = todos.filter((todo) => !todo.completed)
+  });
+
+  const pendingTodos = todos.filter((todo) => !todo.completed);
 
   useEffect(() => {
-    setFilter(selectedFilter)
-  }, [selectedFilter, searchValue, todos])
+    setFilter(selectedFilter);
+  }, [selectedFilter, searchValue, todos]);
 
   useEffect(() => {
-    const htmlElementClassList = document.querySelector("html").classList
-    theme === "light" ? htmlElementClassList.remove("dark") : htmlElementClassList.add("dark")
-  }, [theme])
+    const htmlElementClassList = document.querySelector("html").classList;
+    theme === "light"
+      ? htmlElementClassList.remove("dark")
+      : htmlElementClassList.add("dark");
+  }, [theme]);
 
   const searchedTodo = todos.filter((todo) => {
     const todoTile = todo.title.toLowerCase();
@@ -43,28 +45,35 @@ function App() {
   });
 
   const handleFilter = (filter) => {
-    setSelectedFilter(filter)
-  }
+    setSelectedFilter(filter);
+  };
 
   const handleIsOpenModal = () => {
-    setIsCreateModalOpen(!isCreateModalOpen)
-    console.log("Open/Close Create Modal")
-  }
+    setIsCreateModalOpen(!isCreateModalOpen);
+    console.log("Open/Close Create Modal");
+  };
 
   const handleChangeTheme = () => {
     setTheme((prevTheme) => {
-      return prevTheme === "light" ? "dark" : "light"
-    })
-  }
+      return prevTheme === "light" ? "dark" : "light";
+    });
+  };
 
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', handleChangeTheme)
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", handleChangeTheme);
 
   const createTodo = (title, description, completed) => {
-    const newTodo = { id: uuidv4(), title: title, description: description, completed: completed }
+    const newTodo = {
+      id: uuidv4(),
+      title: title,
+      description: description,
+      completed: completed,
+    };
     setTodos((prevTodos) => {
-      return [...prevTodos, newTodo]
-    })
-  }
+      return [...prevTodos, newTodo];
+    });
+  };
 
   const checkTodo = (id) => {
     setTodos((prevTodos) => {
@@ -75,40 +84,54 @@ function App() {
         return todo;
       });
     });
-    console.log(`Todo Checked, ID: ${id}`)
+    console.log(`Todo Checked, ID: ${id}`);
   };
 
   const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter(todo => todo.id !== id));
-    console.log(`Todo Deleted, ID: ${id}`)
-  }
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    console.log(`Todo Deleted, ID: ${id}`);
+  };
 
-  const updateTodo = ( id, newTitle, newDescription, newCompleted) => {
+  const updateTodo = (id, newTitle, newDescription, newCompleted) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
         if (todo.id === id) {
-          return { ...todo, title: newTitle, description: newDescription, completed: newCompleted }
+          return {
+            ...todo,
+            title: newTitle,
+            description: newDescription,
+            completed: newCompleted,
+          };
         }
-        return todo
-      })
-    })
-    console.log(`Todo Updated, ID: ${id}`)
-  }
+        return todo;
+      });
+    });
+    console.log(`Todo Updated, ID: ${id}`);
+  };
 
   return (
     <>
-      <Nav handleIsOpenModal={handleIsOpenModal} handleChangeTheme={handleChangeTheme} />
+      <Nav
+        handleIsOpenModal={handleIsOpenModal}
+        handleChangeTheme={handleChangeTheme}
+      />
       <div className="App mx-auto mt-10 max-w-[800px] lg:max-w-[1080px]">
         <Header handleChangeTheme={handleChangeTheme} />
-        <section className="w-full px-6 mt-6 flex flex-col gap-6">
+        <section className="mt-6 flex w-full flex-col gap-6 px-6">
           <div>
             <h2 className="text-2xl font-semibold text-secondary transition-colors dark:text-white">
               Welcome, <span className="text-primary">Diego</span>
             </h2>
-            <TodoCounter pendingTodosCounter={pendingTodos.length} allTodosCounter={todos.length} />
+            <TodoCounter
+              pendingTodosCounter={pendingTodos.length}
+              allTodosCounter={todos.length}
+            />
           </div>
           <div className="flex flex-row-reverse gap-2">
-            <TodoFilter handleFilter={handleFilter} currentFilter={selectedFilter} />
+            <TodoFilter
+              handleFilter={handleFilter}
+              currentFilter={selectedFilter}
+            />
             <TodoSearch
               searchValue={searchValue}
               setSearchValue={setSearchValue}
@@ -116,10 +139,10 @@ function App() {
           </div>
         </section>
         {todos.length > 0 ? (
-          <section className="w-full px-6 mt-9 mb-32 md:mb-8">
-            <div className="flex items-center justify-between mb-4 md:mb-6">
+          <section className="mb-32 mt-9 w-full px-6 md:mb-8">
+            <div className="mb-4 flex items-center justify-between md:mb-6">
               <button
-                className="hidden bg-primary bg-opacity-10 px-4 py-3 gap-2 rounded-xl md:flex"
+                className="hidden gap-2 rounded-xl bg-primary bg-opacity-10 px-4 py-3 md:flex"
                 onClick={() => setIsCreateModalOpen(true)}
               >
                 <svg
@@ -151,16 +174,22 @@ function App() {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <p className="text-lg text-primary font-medium">
+                <p className="text-lg font-medium text-primary">
                   Add a new task
                 </p>
               </button>
               <p className="text-lg text-primary">Clear completed</p>
             </div>
-            <TodoList todoList={searchedTodo} filter={filter} checkTodoAction={checkTodo} deleteTodoAction={deleteTodo} updateTodoAction={updateTodo} />
+            <TodoList
+              todoList={searchedTodo}
+              filter={filter}
+              checkTodoAction={checkTodo}
+              deleteTodoAction={deleteTodo}
+              updateTodoAction={updateTodo}
+            />
           </section>
         ) : (
-          <section className="w-full h-[calc(100vh-200px)] min-h-96 mb-[86px] px-6 flex flex-col items-center justify-center md:mb-0">
+          <section className="mb-[86px] flex h-[calc(100vh-200px)] min-h-96 w-full flex-col items-center justify-center px-6 md:mb-0">
             <svg
               width="148"
               height="144"
@@ -217,10 +246,10 @@ function App() {
                 </clipPath>
               </defs>
             </svg>
-            <h4 className="text-slateblue text-lg font-medium my-6">
+            <h4 className="my-6 text-lg font-medium text-slateblue">
               You have no tasks listed.
             </h4>
-            <button className="flex items-center gap-2 bg-primary bg-opacity-10 px-4 py-3 rounded-xl">
+            <button className="flex items-center gap-2 rounded-xl bg-primary bg-opacity-10 px-4 py-3">
               <svg
                 width="15"
                 height="14"
@@ -243,15 +272,20 @@ function App() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="text-primary" onClick={handleIsOpenModal}>Create task</p>
+              <p className="text-primary" onClick={handleIsOpenModal}>
+                Create task
+              </p>
             </button>
           </section>
         )}
       </div>
       {isCreateModalOpen && (
-        <TodoModal useFor={0} handleIsOpenModal={handleIsOpenModal} onSubmit={createTodo} />
-      )
-      }
+        <TodoModal
+          useFor={0}
+          handleIsOpenModal={handleIsOpenModal}
+          onSubmit={createTodo}
+        />
+      )}
     </>
   );
 }

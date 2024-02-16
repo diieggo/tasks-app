@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 import { TodoItem } from "./TodoItem";
 
-function TodoList({ todoList, filter, checkTodoAction, deleteTodoAction, updateTodoAction }) {
-  const [todosToRender, setTodosToRender] = useState(todoList)
+function TodoList({
+  todoList,
+  filter,
+  checkTodoAction,
+  deleteTodoAction,
+  updateTodoAction,
+}) {
+  const [todosToRender, setTodosToRender] = useState(todoList);
 
   useEffect(() => {
     if (filter === "Pending") {
       const pendingTodos = todoList.filter((todo) => !todo.completed);
-      setTodosToRender(pendingTodos)
+      setTodosToRender(pendingTodos);
     } else if (filter === "Completed") {
       const completedTodos = todoList.filter((todo) => todo.completed);
-      setTodosToRender(completedTodos)
+      setTodosToRender(completedTodos);
     } else {
-      setTodosToRender(todoList)
+      setTodosToRender(todoList);
     }
-  }, [filter, todoList])
+  }, [filter, todoList]);
   return (
     <>
       <ul className="flex flex-col gap-4">

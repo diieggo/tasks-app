@@ -21,13 +21,13 @@ function TodoFilter({ handleFilter, currentFilter }) {
   }, []);
 
   useEffect(() => {
-    handleFilter(optionSelected)
-  }, [optionSelected])
+    handleFilter(optionSelected);
+  }, [optionSelected]);
 
   return (
     <div className="relative" ref={dropdownRef}>
       <div
-        className={`w-32 h-full flex items-center justify-between px-3 bg-palewhite rounded-xl border-2 cursor-pointer transition-colors ${isOpen ? "border-primary" : " border-transparent"} md:px-4 md:w-36 dark:bg-gray-800`}
+        className={`flex h-full w-32 cursor-pointer items-center justify-between rounded-xl border-2 bg-palewhite px-3 transition-colors ${isOpen ? "border-primary" : " border-transparent"} dark:bg-gray-800 md:w-36 md:px-4`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <p className="text-primary">{currentFilter}</p>
@@ -47,14 +47,14 @@ function TodoFilter({ handleFilter, currentFilter }) {
         </svg>
       </div>
       <div
-        className={`absolute w-full z-10 right-0 mt-2 bg-palewhite border-2 border-primary border-opacity-50 p-2 rounded-xl transition-colors ${isOpen ? "visible opacity-100" : "invisible opacity-0"} dark:bg-gray-800 dark:border-gray`}
+        className={`absolute right-0 z-10 mt-2 w-full rounded-xl border-2 border-primary border-opacity-50 bg-palewhite p-2 transition-colors ${isOpen ? "visible opacity-100" : "invisible opacity-0"} dark:border-gray dark:bg-gray-800`}
       >
         <ul className="flex flex-col gap-2">
           {filterOptions.map((option, index) => {
             return (
               <li key={index}>
                 <button
-                  className={`w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-out hover:bg-primary hover:bg-opacity-10 ${option === currentFilter && "bg-primary bg-opacity-10"}`}
+                  className={`w-full rounded-lg px-3 py-2 text-left text-primary transition-all ease-out hover:bg-primary hover:bg-opacity-10 ${option === currentFilter && "bg-primary bg-opacity-10"}`}
                   onClick={() => {
                     setOptionSelected(option);
                   }}

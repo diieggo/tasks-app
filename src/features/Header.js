@@ -1,10 +1,12 @@
 function Header({ handleChangeTheme }) {
   return (
-    <header className="w-full flex justify-between items-center px-6">
-      <h1 className="text-3xl font-bold text-secondary transition-colors dark:text-white">Tasks</h1>
+    <header className="flex w-full items-center justify-between px-6">
+      <h1 className="text-3xl font-bold text-secondary transition-colors dark:text-white">
+        Tasks
+      </h1>
       <div className="flex items-center gap-8">
         <button
-          className="hidden p-2 border-2 border-palewhite rounded-lg transition-colors md:block dark:border-gray-800"
+          className="hidden rounded-lg border-2 border-palewhite p-2 transition-colors dark:border-gray-800 md:block"
           onClick={handleChangeTheme}
         >
           <svg
@@ -40,9 +42,11 @@ function Header({ handleChangeTheme }) {
             />
           </svg>
         </button>
-        <div className="flex gap-3 items-center">
-          <p className="text-lg font-medium text-secondary transition-colors dark:text-white">Diego</p>
-          <span className="bg-primary bg-opacity-25 py-2 px-3 rounded-full text-xl">
+        <div className="flex items-center gap-3">
+          <p className="text-lg font-medium text-secondary transition-colors dark:text-white">
+            Diego
+          </p>
+          <span className="rounded-full bg-primary bg-opacity-25 px-3 py-2 text-xl">
             🚀
           </span>
         </div>

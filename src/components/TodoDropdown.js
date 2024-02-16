@@ -28,7 +28,7 @@ function TodoDropdown({ onDelete, openModalAction }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <svg
-          className="w-5 h-5"
+          className="h-5 w-5"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -38,12 +38,12 @@ function TodoDropdown({ onDelete, openModalAction }) {
         </svg>
       </button>
       <div
-        className={`absolute z-10 right-0 mt-2 bg-white border border-palewhite p-2 rounded-xl ${isOpen ? "visible opacity-100" : "invisible opacity-0"} transition-colors dark:bg-gray-800 dark:border-gray-900`}
+        className={`absolute right-0 z-10 mt-2 rounded-xl border border-palewhite bg-white p-2 ${isOpen ? "visible opacity-100" : "invisible opacity-0"} transition-colors dark:border-gray-900 dark:bg-gray-800`}
       >
         <ul>
           <li>
             <button
-              className="w-full px-3 py-2 rounded-lg text-left text-primary transition-all ease-in-out hover:bg-primary hover:bg-opacity-10"
+              className="w-full rounded-lg px-3 py-2 text-left text-primary transition-all ease-in-out hover:bg-primary hover:bg-opacity-10"
               onClick={() => {
                 handleOptionClick();
                 openModalAction();
@@ -54,7 +54,7 @@ function TodoDropdown({ onDelete, openModalAction }) {
           </li>
           <li>
             <button
-              className="w-full px-3 py-2 rounded-lg text-left text-red-500 transition-all ease-in-out hover:bg-red-500 hover:bg-opacity-10"
+              className="w-full rounded-lg px-3 py-2 text-left text-red-500 transition-all ease-in-out hover:bg-red-500 hover:bg-opacity-10"
               onClick={() => {
                 handleOptionClick();
                 onDelete();
