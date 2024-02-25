@@ -12,7 +12,10 @@ import { IconSquarePlus, IconPlus } from "./imgs/icons";
 import { FigureNotes } from "./imgs/figures";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const localStorageTodos = localStorage.getItem("TodosList")
+  const parsedTodos = JSON.parse(localStorageTodos)
+
+  const [todos, setTodos] = useState(parsedTodos || []);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -26,6 +29,12 @@ function App() {
   });
 
   const pendingTodos = todos.filter((todo) => !todo.completed);
+
+  useEffect(() => {
+    const stringifiedTodos = JSON.stringify(todos)
+    localStorage.setItem("TodosList", stringifiedTodos)
+    console.log("Local Storage Updated")
+  }, [todos])
 
   useEffect(() => {
     setFilter(selectedFilter);
@@ -71,7 +80,7 @@ function App() {
       id: uuidv4(),
       title: title,
       description: description,
-      completed: completed,
+      completed: !!completed,
     };
     setTodos((prevTodos) => {
       return [...prevTodos, newTodo];
@@ -103,7 +112,7 @@ function App() {
             ...todo,
             title: newTitle,
             description: newDescription,
-            completed: newCompleted,
+            completed: !!newCompleted,
           };
         }
         return todo;
