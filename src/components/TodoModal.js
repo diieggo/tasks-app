@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconClose } from "../imgs/icons";
+import { IconClose } from "../assets/icons";
 
 function TodoModal({
   useFor,

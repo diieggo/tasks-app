@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { IconMenuKebab } from "../imgs/icons";
+import { IconMenuKebab } from "../assets/icons";
 
 function TodoDropdown({ onDelete, openModalAction }) {
   const [isOpen, setIsOpen] = useState(false);

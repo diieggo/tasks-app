@@ -1,4 +1,4 @@
-import { IconMoon, IconSun } from "../imgs/icons";
+import { IconMoon, IconSun } from "../assets/icons";
 
 function Header({ handleChangeTheme }) {
   return (

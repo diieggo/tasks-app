@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { IconChevronDown } from "../imgs/icons";
+import { IconChevronDown } from "../assets/icons";
 
 function TodoFilter({ handleFilter, currentFilter }) {
   const [isOpen, setIsOpen] = useState(false);

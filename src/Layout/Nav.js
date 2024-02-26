@@ -1,4 +1,4 @@
-import { IconList, IconSquarePlus, IconMoon, IconSun } from "../imgs/icons";
+import { IconList, IconSquarePlus, IconMoon, IconSun } from "../assets/icons";
 
 function Nav({ handleIsOpenModal, handleChangeTheme }) {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Nav, Header } from "./features";
+import { Nav, Header } from "./Layout";
 import {
   TodoCounter,
   TodoSearch,
@@ -8,8 +8,8 @@ import {
   TodoFilter,
   TodoModal,
 } from "./components";
-import { IconSquarePlus, IconPlus } from "./imgs/icons";
-import { FigureNotes } from "./imgs/figures";
+import { IconSquarePlus, IconPlus } from "./assets/icons";
+import { FigureNotes } from "./assets/figures";
 
 function App() {
   const localStorageTodos = localStorage.getItem("TodosList")

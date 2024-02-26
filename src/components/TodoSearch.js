@@ -1,4 +1,4 @@
-import { IconSearch } from "../imgs/icons";
+import { IconSearch } from "../assets/icons";
 
 function TodoSearch({ searchValue, setSearchValue }) {
   return (
