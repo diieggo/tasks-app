@@ -8,33 +8,19 @@ import {
   TodoFilter,
   TodoModal,
 } from "./components";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import { IconSquarePlus, IconPlus } from "./assets/icons";
 import { FigureNotes } from "./assets/figures";
 
 function App() {
-  const localStorageTodos = localStorage.getItem("TodosList")
-  const parsedTodos = JSON.parse(localStorageTodos)
-
-  const [todos, setTodos] = useState(parsedTodos || []);
+  const [todos, setTodos] = useLocalStorage("tasks", []);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("All");
+  const [selectedFilter, setSelectedFilter] = useState("filter", "All");
   const [filter, setFilter] = useState(selectedFilter);
-  const [theme, setTheme] = useState(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    } else {
-      return "light";
-    }
-  });
+  const [theme, setTheme] = useLocalStorage("theme", "dark");
 
   const pendingTodos = todos.filter((todo) => !todo.completed);
-
-  useEffect(() => {
-    const stringifiedTodos = JSON.stringify(todos)
-    localStorage.setItem("TodosList", stringifiedTodos)
-    console.log("Local Storage Updated")
-  }, [todos])
 
   useEffect(() => {
     setFilter(selectedFilter);
@@ -66,9 +52,8 @@ function App() {
   };
 
   const handleChangeTheme = () => {
-    setTheme((prevTheme) => {
-      return prevTheme === "light" ? "dark" : "light";
-    });
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
   };
 
   window
@@ -82,42 +67,39 @@ function App() {
       description: description,
       completed: !!completed,
     };
-    setTodos((prevTodos) => {
-      return [...prevTodos, newTodo];
-    });
+    setTodos([...todos, newTodo]);
   };
 
   const checkTodo = (id) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, completed: !todo.completed };
-        }
-        return todo;
-      });
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
     });
+    setTodos(newTodos);
     console.log(`Todo Checked, ID: ${id}`);
   };
 
   const deleteTodo = (id) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
     console.log(`Todo Deleted, ID: ${id}`);
   };
 
   const updateTodo = (id, newTitle, newDescription, newCompleted) => {
-    setTodos((prevTodos) => {
-      return prevTodos.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            title: newTitle,
-            description: newDescription,
-            completed: !!newCompleted,
-          };
-        }
-        return todo;
-      });
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          title: newTitle,
+          description: newDescription,
+          completed: !!newCompleted,
+        };
+      }
+      return todo;
     });
+    setTodos(newTodos);
     console.log(`Todo Updated, ID: ${id}`);
   };
 
