@@ -23,7 +23,7 @@ function TodoFilter({ handleFilter, currentFilter }) {
 
   useEffect(() => {
     handleFilter(optionSelected);
-  }, [optionSelected]);
+  }, [optionSelected, handleFilter]);
 
   return (
     <div className="relative" ref={dropdownRef}>
