@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TodoItem } from "./TodoItem";
+import { Note } from "./";
 
 function TodoList({
   todoList,
@@ -23,6 +24,7 @@ function TodoList({
   }, [filter, todoList]);
   return (
     <>
+      {(todosToRender.length === 0 && <Note useFor={1} />)}
       <ul className="flex flex-col gap-4">
         {todosToRender.map((todo, index) => (
           <TodoItem

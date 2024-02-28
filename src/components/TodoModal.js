@@ -63,6 +63,7 @@ function TodoModal({
                   name="title"
                   id="title"
                   autoComplete="off"
+                  autoFocus={true}
                   defaultValue={modalTitle}
                   onChange={(e) => setModalTitle(e.target.value)}
                   className="block w-full rounded-lg border border-mutedazure p-2 text-lg text-secondary transition-colors focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 dark:border-slateblue dark:bg-gray-700 dark:text-white dark:focus:border-primary"

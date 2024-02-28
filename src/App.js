@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Nav, Header } from "./Layout";
 import {
+  Note,
   TodoCounter,
   TodoSearch,
   TodoList,
@@ -9,16 +10,23 @@ import {
   TodoModal,
 } from "./components";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { IconSquarePlus, IconPlus } from "./assets/icons";
-import { FigureNotes } from "./assets/figures";
+import { IconSquarePlus } from "./assets/icons";
 
 function App() {
-  const [todos, setTodos] = useLocalStorage("tasks", []);
+  const {
+    storedValue: todos,
+    setValue: setTodos,
+    isLoading: todosIsLoading,
+    error: todosError,
+  } = useLocalStorage("tasks", []);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("filter", "All");
   const [filter, setFilter] = useState(selectedFilter);
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const { storedValue: theme, setValue: setTheme } = useLocalStorage(
+    "theme",
+    "dark",
+  );
 
   const pendingTodos = todos.filter((todo) => !todo.completed);
 
@@ -111,7 +119,7 @@ function App() {
       />
       <div className="App mx-auto mt-10 max-w-[800px] lg:max-w-[1080px]">
         <Header handleChangeTheme={handleChangeTheme} />
-        <section className="mt-6 flex w-full flex-col gap-6 px-6">
+        <section className="mt-6 w-full flex-col px-6">
           <div>
             <h2 className="text-2xl font-semibold text-secondary transition-colors dark:text-white">
               Welcome, <span className="text-primary">Diego</span>
@@ -121,20 +129,20 @@ function App() {
               allTodosCounter={todos.length}
             />
           </div>
-          <div className="flex flex-row-reverse gap-2">
-            <TodoFilter
-              handleFilter={handleFilter}
-              currentFilter={selectedFilter}
-            />
-            <TodoSearch
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-            />
-          </div>
         </section>
         {todos.length > 0 ? (
-          <section className="mb-32 mt-9 w-full px-6 md:mb-8">
-            <div className="mb-4 flex items-center justify-between md:mb-6">
+          <section className="mb-32 mt-6 flex w-full flex-col gap-6 px-6 md:mb-8">
+            <div className="flex flex-row-reverse gap-2 mb-3">
+              <TodoFilter
+                handleFilter={handleFilter}
+                currentFilter={selectedFilter}
+              />
+              <TodoSearch
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+              />
+            </div>
+            <div className="flex items-center justify-between">
               <button
                 className="hidden gap-2 rounded-xl bg-primary bg-opacity-10 px-4 py-3 md:flex"
                 onClick={() => setIsCreateModalOpen(true)}
@@ -153,19 +161,7 @@ function App() {
             />
           </section>
         ) : (
-          <section className="mb-[86px] flex h-[calc(100vh-200px)] min-h-96 w-full flex-col items-center justify-center px-6 md:mb-0">
-            <FigureNotes />
-            <h4 className="my-6 font-medium text-slateblue">
-              You have no tasks listed.
-            </h4>
-            <button
-              className="flex items-center gap-2 rounded-xl bg-primary bg-opacity-10 px-4 py-3"
-              onClick={handleIsOpenModal}
-            >
-              <IconPlus />
-              <p className="text-primary">Create task</p>
-            </button>
-          </section>
+          <Note useFor={0} handle={handleIsOpenModal} />
         )}
       </div>
       {isCreateModalOpen && (
