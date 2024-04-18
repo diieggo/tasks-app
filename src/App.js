@@ -119,7 +119,7 @@ function App() {
       />
       <div className="App mx-auto mt-10 max-w-[800px] lg:max-w-[1080px]">
         <Header handleChangeTheme={handleChangeTheme} />
-        <section className="mt-6 w-full flex-col px-6">
+        <section className="mt-6 flex w-full flex-col gap-6 px-6">
           <div>
             <h2 className="text-2xl font-semibold text-secondary transition-colors dark:text-white">
               Welcome, <span className="text-primary">Diego</span>
@@ -129,20 +129,22 @@ function App() {
               allTodosCounter={todos.length}
             />
           </div>
+          <div className="flex flex-row-reverse gap-2">
+            <TodoFilter
+              handleFilter={handleFilter}
+              currentFilter={selectedFilter}
+            />
+            <TodoSearch
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+            />
+          </div>
         </section>
-        {todos.length > 0 ? (
-          <section className="mb-32 mt-6 flex w-full flex-col gap-6 px-6 md:mb-8">
-            <div className="flex flex-row-reverse gap-2 mb-3">
-              <TodoFilter
-                handleFilter={handleFilter}
-                currentFilter={selectedFilter}
-              />
-              <TodoSearch
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-              />
-            </div>
-            <div className="flex items-center justify-between">
+        {todosIsLoading && <p>Loading</p>}
+        {todosError && <p>Error</p>}
+        {!todosIsLoading && todos.length > 0 && (
+          <section className="mb-32 mt-9 w-full px-6 md:mb-8">
+            <div className="mb-4 flex items-center justify-between md:mb-6">
               <button
                 className="hidden gap-2 rounded-xl bg-primary bg-opacity-10 px-4 py-3 md:flex"
                 onClick={() => setIsCreateModalOpen(true)}
@@ -160,7 +162,8 @@ function App() {
               updateTodoAction={updateTodo}
             />
           </section>
-        ) : (
+        )}
+        {!todosIsLoading && todos.length === 0 && (
           <Note useFor={0} handle={handleIsOpenModal} />
         )}
       </div>
@@ -173,6 +176,32 @@ function App() {
       )}
     </>
   );
+}
+
+{
+  /* <section className="mb-32 mt-6 flex w-full flex-col gap-6 px-6 md:mb-8">
+  <div className="mb-3 flex flex-row-reverse gap-2">
+    <TodoFilter handleFilter={handleFilter} currentFilter={selectedFilter} />
+    <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+  </div>
+  <div className="flex items-center justify-between">
+    <button
+      className="hidden gap-2 rounded-xl bg-primary bg-opacity-10 px-4 py-3 md:flex"
+      onClick={() => setIsCreateModalOpen(true)}
+    >
+      <IconSquarePlus stroke="#007FFF" />
+      <p className="font-medium text-primary">Add a new task</p>
+    </button>
+    <p className="text-primary">Clear completed</p>
+  </div>
+  <TodoList
+    todoList={searchedTodo}
+    filter={filter}
+    checkTodoAction={checkTodo}
+    deleteTodoAction={deleteTodo}
+    updateTodoAction={updateTodo}
+  />
+</section>; */
 }
 
 export { App };
