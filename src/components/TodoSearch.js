@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { IconSearch } from "../assets/icons";
+import { TodoContext } from "../context/TodoContext";
 
-function TodoSearch({ searchValue, setSearchValue }) {
+function TodoSearch() {
+  const { searchValue, setSearchValue } = useContext(TodoContext)
+
   return (
     <div className="flex w-full items-center rounded-xl bg-palewhite px-4 transition-colors dark:bg-gray-800">
       <IconSearch />

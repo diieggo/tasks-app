@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { IconList, IconSquarePlus, IconMoon, IconSun } from "../assets/icons";
+import { TodoContext } from "../context/TodoContext";
 
-function Nav({ handleIsOpenModal, handleChangeTheme }) {
+function Nav({ handleChangeTheme }) {
+  const { handleIsOpenModal } = useContext(TodoContext);
+
   return (
     <>
       <nav className="nav-mobile fixed bottom-0 z-20 flex w-full items-baseline justify-evenly border-t-2 border-palewhite bg-white p-4 transition-colors dark:border-gray-800 dark:bg-gray-900 md:hidden">

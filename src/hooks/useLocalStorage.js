@@ -20,7 +20,8 @@ const useLocalStorage = (key, defaultValue) => {
       }
 
       setIsLoading(false);
-    }, 2000);
+    }, 500);
+    // eslint-disable-next-line
   }, []);
 
   const setValue = (value) => {

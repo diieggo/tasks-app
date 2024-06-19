@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { IconChevronDown } from "../assets/icons";
+import { TodoContext } from "../context/TodoContext";
 
-function TodoFilter({ handleFilter, currentFilter }) {
+function TodoFilter() {
+  const {handleFilter, selectedFilter} = useContext(TodoContext)
+
   const [isOpen, setIsOpen] = useState(false);
   const [optionSelected, setOptionSelected] = useState("All");
   const dropdownRef = useRef(null);
@@ -31,7 +34,7 @@ function TodoFilter({ handleFilter, currentFilter }) {
         className={`flex h-full w-32 cursor-pointer items-center justify-between rounded-xl border-2 bg-palewhite px-3 transition-colors ${isOpen ? "border-primary" : " border-transparent"} dark:bg-gray-800 md:w-36 md:px-4`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <p className="text-primary">{currentFilter}</p>
+        <p className="text-primary">{selectedFilter}</p>
         <IconChevronDown />
       </div>
       <div
@@ -42,7 +45,7 @@ function TodoFilter({ handleFilter, currentFilter }) {
             return (
               <li key={index}>
                 <button
-                  className={`w-full rounded-lg px-3 py-2 text-left text-primary transition-all ease-out hover:bg-primary hover:bg-opacity-10 ${option === currentFilter && "bg-primary bg-opacity-10"}`}
+                  className={`w-full rounded-lg px-3 py-2 text-left text-primary transition-all ease-out hover:bg-primary hover:bg-opacity-10 ${option === selectedFilter && "bg-primary bg-opacity-10"}`}
                   onClick={() => {
                     setOptionSelected(option);
                   }}

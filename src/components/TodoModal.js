@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IconClose } from "../assets/icons";
+import { TodoContext } from "../context/TodoContext";
 
 function TodoModal({
   useFor,
@@ -8,17 +9,17 @@ function TodoModal({
   description,
   completed,
   handleIsOpenModal,
-  onSubmit,
 }) {
+  const { createTodo } = useContext(TodoContext);
   const [modalTitle, setModalTitle] = useState(title || "");
   const [modalDescription, setModalDescription] = useState(description || "");
   const [modalCompleted, setModalCompleted] = useState(completed || "");
 
   const handleUpdateTodo = () => {
     if (useFor) {
-      onSubmit(id, modalTitle, modalDescription, modalCompleted);
+      createTodo(id, modalTitle, modalDescription, modalCompleted);
     } else {
-      onSubmit(modalTitle, modalDescription, modalCompleted);
+      createTodo(modalTitle, modalDescription, modalCompleted);
     }
   };
 

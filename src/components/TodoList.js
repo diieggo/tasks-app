@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TodoItem } from "./TodoItem";
 import { Note } from "./";
+import { TodoContext } from "../context/TodoContext";
 
-function TodoList({
-  todoList,
-  filter,
-  checkTodoAction,
-  deleteTodoAction,
-  updateTodoAction,
-}) {
+function TodoList() {
+  const {
+    searchedTodo: todoList,
+    filter,
+    checkTodo,
+    deleteTodo,
+    updateTodo,
+  } = useContext(TodoContext);
   const [todosToRender, setTodosToRender] = useState(todoList);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ function TodoList({
   }, [filter, todoList]);
   return (
     <>
-      {(todosToRender.length === 0 && <Note useFor={1} />)}
+      {todosToRender.length === 0 && <Note useFor={1} />}
       <ul className="flex flex-col gap-4">
         {todosToRender.map((todo, index) => (
           <TodoItem
@@ -34,9 +36,9 @@ function TodoList({
             title={todo.title}
             description={todo.description}
             completed={todo.completed}
-            onComplete={() => checkTodoAction(todo.id)}
-            onDelete={() => deleteTodoAction(todo.id)}
-            onUpdate={updateTodoAction}
+            onComplete={() => checkTodo(todo.id)}
+            onDelete={() => deleteTodo(todo.id)}
+            onUpdate={updateTodo}
           />
         ))}
       </ul>
